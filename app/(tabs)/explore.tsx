@@ -11,6 +11,7 @@ import { ThemedView } from '@/components/themed-view';
 import { IconSymbol } from '@/components/ui/icon-symbol';
 import { Fonts } from '@/constants/theme';
 import CalorieSearch from '@/components/calarieSearch';
+import KjToCalConverter from '@/components/KjToCalConverter';
 
 export default function TabTwoScreen() {
   const [food, setFood] = useState('');
@@ -60,27 +61,13 @@ export default function TabTwoScreen() {
       <ThemedText>Enter a food item here:</ThemedText>
 
       {/* --- Calorie Search Section --- */}
-      <View style={styles.searchContainer}>
-        <TextInput
-          style={styles.input}
-          placeholder="Enter food item"
-          value={food}
-          onChangeText={setFood}
-          placeholderTextColor="#888" // optional: makes placeholder match theme if needed
-        />
-        <Button title="Search Calories" onPress={searchCalories} />
-        {loading && <ThemedText>Loading...</ThemedText>}
-        {calories !== null && !loading && (
-          <ThemedText style={styles.result}>
-            {calories > 0 ? `Calories: ${calories}` : 'Item not found or error'}
-          </ThemedText>
-        )}
-      </View>
+      
 
 
       <ThemedView style={{ flex: 1, padding: 20 }}>
       <CalorieSearch />
-      {/* other content */}
+      <ThemedText>OR</ThemedText>
+      <KjToCalConverter />
     </ThemedView>
 
       

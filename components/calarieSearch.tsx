@@ -1,8 +1,9 @@
 // components/CalorieSearch.tsx
 import React, { useState } from 'react';
 import { View, TextInput, Button, StyleSheet } from 'react-native';
-import { ThemedText } from './themed-text'; // your themed text component
-import axios from 'axios';
+import { ThemedText } from './themed-text';
+import { GoogleGenerativeAI } from '@google/generative-ai';
+import { ThemedButton } from './ui/ThemedButton';
 
 export default function CalorieSearch() {
   const [food, setFood] = useState('');
@@ -13,17 +14,19 @@ export default function CalorieSearch() {
     if (!food) return;
     setLoading(true);
     try {
-      const response = await axios.get(
-        `https://api.calorieninjas.com/v1/nutrition?query=${food}`,
-        { headers: { 'X-Api-Key': 'YOUR_API_KEY' } }
-      );
-      if (response.data.items && response.data.items.length > 0) {
-        setCalories(response.data.items[0].calories);
-      } else {
-        setCalories(0);
-      }
+      const API_KEY = '';
+      const genAI = new GoogleGenerativeAI(API_KEY);
+      const model = genAI.getGenerativeModel({ model: "gemini-2.5-flash" });
+
+      const prompt = `Estimate the calories for: ${food}. Respond with ONLY a number representing the calories, nothing else.`;
+      const result = await model.generateContent(prompt);
+      const response = await result.response;
+      const text = response.text();
+      
+      const calorieNumber = parseInt(text.match(/\d+/)?.[0] || '0');
+      setCalories(calorieNumber);
     } catch (error) {
-      console.error(error);
+      console.error('Error:', error);
       setCalories(0);
     }
     setLoading(false);
@@ -33,15 +36,15 @@ export default function CalorieSearch() {
     <View style={styles.container}>
       <TextInput
         style={styles.input}
-        placeholder="Enter food item"
+        placeholder="Enter food item (e.g., 'apple' or '100g chicken breast')"
         value={food}
         onChangeText={setFood}
       />
-      <Button title="Search Calories" onPress={searchCalories} />
+      <ThemedButton title="Search Calories" onPress={searchCalories} />
       {loading && <ThemedText>Loading...</ThemedText>}
       {calories !== null && !loading && (
         <ThemedText>
-          {calories > 0 ? `Calories: ${calories}` : 'Item not found or error'}
+          {calories > 0 ? `Calories: ${calories}` : 'Could not estimate calories'}
         </ThemedText>
       )}
     </View>
@@ -50,5 +53,12 @@ export default function CalorieSearch() {
 
 const styles = StyleSheet.create({
   container: { marginVertical: 20 },
-  input: { borderWidth: 1, borderColor: '#ccc', borderRadius: 5, padding: 10, marginBottom: 10 },
+  input: { 
+    borderWidth: 1, 
+    borderColor: '#ccc', 
+    borderRadius: 5, 
+    padding: 10, 
+    marginBottom: 10,
+    backgroundColor: '#fff'
+  },
 });
