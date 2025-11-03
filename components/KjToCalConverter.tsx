@@ -1,8 +1,9 @@
 // components/KjToCalConverter.tsx
 import React, { useState } from 'react';
-import { View, TextInput, Button, StyleSheet } from 'react-native';
+import { View, StyleSheet } from 'react-native';
 import { ThemedText } from './themed-text';
 import { ThemedButton } from './ui/ThemedButton';
+import { ThemedTextInput } from './ui/ThemedTextInput';
 
 export default function KjToCalConverter() {
   const [kilojoules, setKilojoules] = useState('');
@@ -24,7 +25,7 @@ export default function KjToCalConverter() {
 
   return (
     <View style={styles.container}>
-      <TextInput
+      <ThemedTextInput
         style={styles.input}
         placeholder="Enter kilojoules (kJ)"
         value={kilojoules}

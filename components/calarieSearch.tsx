@@ -1,9 +1,11 @@
 // components/CalorieSearch.tsx
 import React, { useState } from 'react';
-import { View, TextInput, Button, StyleSheet } from 'react-native';
+import { View, StyleSheet } from 'react-native';
 import { ThemedText } from './themed-text';
 import { GoogleGenerativeAI } from '@google/generative-ai';
 import { ThemedButton } from './ui/ThemedButton';
+import { ThemedTextInput } from './ui/ThemedTextInput';
+
 
 export default function CalorieSearch() {
   const [food, setFood] = useState('');
@@ -34,7 +36,7 @@ export default function CalorieSearch() {
 
   return (
     <View style={styles.container}>
-      <TextInput
+      <ThemedTextInput
         style={styles.input}
         placeholder="Enter food item (e.g., 'apple' or '100g chicken breast')"
         value={food}
