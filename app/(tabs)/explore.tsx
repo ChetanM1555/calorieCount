@@ -1,17 +1,14 @@
-import React, { useState } from 'react';
-import { Image } from 'expo-image';
-import { Platform, StyleSheet, TextInput, Button, View, Text } from 'react-native';
 import axios from 'axios';
+import React, { useState } from 'react';
+import { StyleSheet } from 'react-native';
 
-import { Collapsible } from '@/components/ui/collapsible';
-import { ExternalLink } from '@/components/external-link';
+import CalorieSearch from '@/components/calculations/calarieSearch';
+import KjToCalConverter from '@/components/calculations/KjToCalConverter';
 import ParallaxScrollView from '@/components/parallax-scroll-view';
 import { ThemedText } from '@/components/themed-text';
 import { ThemedView } from '@/components/themed-view';
 import { IconSymbol } from '@/components/ui/icon-symbol';
 import { Fonts } from '@/constants/theme';
-import CalorieSearch from '@/components/calarieSearch';
-import KjToCalConverter from '@/components/KjToCalConverter';
 
 export default function TabTwoScreen() {
   const [food, setFood] = useState('');

@@ -1,10 +1,10 @@
 // components/CalorieSearch.tsx
-import React, { useState } from 'react';
-import { View, StyleSheet } from 'react-native';
-import { ThemedText } from './themed-text';
 import { GoogleGenerativeAI } from '@google/generative-ai';
-import { ThemedButton } from './ui/ThemedButton';
-import { ThemedTextInput } from './ui/ThemedTextInput';
+import React, { useState } from 'react';
+import { StyleSheet, View } from 'react-native';
+import { ThemedText } from '../themed-text';
+import { ThemedButton } from '../ui/ThemedButton';
+import { ThemedTextInput } from '../ui/ThemedTextInput';
 
 
 export default function CalorieSearch() {
