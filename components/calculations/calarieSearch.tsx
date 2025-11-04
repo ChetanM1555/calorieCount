@@ -5,6 +5,8 @@ import { StyleSheet, View } from 'react-native';
 import { ThemedText } from '../themed-text';
 import { ThemedButton } from '../ui/ThemedButton';
 import { ThemedTextInput } from '../ui/ThemedTextInput';
+import { GOOGLE_API_KEY } from '@env';
+
 
 
 export default function CalorieSearch() {
@@ -16,8 +18,7 @@ export default function CalorieSearch() {
     if (!food) return;
     setLoading(true);
     try {
-      const API_KEY = '';
-      const genAI = new GoogleGenerativeAI(API_KEY);
+      const genAI = new GoogleGenerativeAI(GOOGLE_API_KEY);
       const model = genAI.getGenerativeModel({ model: "gemini-2.5-flash" });
 
       const prompt = `Estimate the calories for: ${food}. Respond with ONLY a number representing the calories, nothing else.`;
